@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clarity</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<!-- AUTH VIEW -->
+<div id="authView" class="centered">
+    <div class="glass-card">
+        <h1>Clarity</h1>
+        <p class="subtitle">Your Career & Communication Coach</p>
+
+        <div id="authForm">
+            <input id="authUsername" placeholder="Username">
+            <input id="authPassword" type="password" placeholder="Password">
+            <button id="authButton" onclick="register()">Create Account</button>
+        </div>
+
+        <p id="switchText">
+            Already have an account?
+            <span onclick="switchToLogin()">Login</span>
+        </p>
+    </div>
+</div>
+
+<!-- DASHBOARD VIEW -->
+<div id="appView" class="hidden">
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Sessions</h2>
+            <button onclick="createSession()">+</button>
+        </div>
+
+        <div id="sessionList" class="session-list"></div>
+
+        <div class="sidebar-footer">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <div id="chatMessages" class="chat-messages"></div>
+
+        <div class="chat-input">
+            <input id="chatInput" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
