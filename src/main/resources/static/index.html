@@ -2,57 +2,235 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clarity</title>
-    <link rel="stylesheet" href="app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity - Career Roadmap & Skill Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Clarity</h1>
+                <p>Your Career Roadmap Guide</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('goals')">Goals</a></li>
+                <li><a href="#" onclick="showSection('roadmap')">Roadmap</a></li>
+                <li><a href="#" onclick="showSection('progress')">Progress</a></li>
+                <li><a href="#" onclick="showSection('projects')">Projects</a></li>
+                <li><a href="#" onclick="showSection('assessment')">Assessment</a></li>
+                <li><button onclick="logout()" class="btn-logout">Logout</button></li>
+            </ul>
+        </nav>
 
-<!-- AUTH VIEW -->
-<div id="authView" class="centered">
-    <div class="glass-card">
-        <h1>Clarity</h1>
-        <p class="subtitle">Your Career & Communication Coach</p>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section">
+                <div class="hero">
+                    <h2>Welcome to Clarity</h2>
+                    <p>Your personalized learning path to achieve your career goals</p>
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <h3 id="totalGoals">0</h3>
+                            <p>Active Goals</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="overallCoverage">0%</h3>
+                            <p>Skill Coverage</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="masteredTopics">0</h3>
+                            <p>Mastered Topics</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div id="authForm">
-            <input id="authUsername" placeholder="Username">
-            <input id="authPassword" type="password" placeholder="Password">
-            <button id="authButton" onclick="register()">Create Account</button>
-        </div>
+            <!-- Goals Section -->
+            <section id="goals" class="section hidden">
+                <div class="section-header">
+                    <h2>Career Goals</h2>
+                    <button onclick="showGoalForm()" class="btn-primary">+ New Goal</button>
+                </div>
 
-        <p id="switchText">
-            Already have an account?
-            <span onclick="switchToLogin()">Login</span>
-        </p>
+                <div id="goalForm" class="form-container hidden">
+                    <form onsubmit="createGoal(event)">
+                        <input type="text" id="goalName" placeholder="Goal name (e.g., Java Developer)" required>
+                        <textarea id="goalDescription" placeholder="Describe your goal and why it matters"></textarea>
+                        <button type="submit" class="btn-primary">Create Goal</button>
+                        <button type="button" onclick="toggleGoalForm()" class="btn-secondary">Cancel</button>
+                    </form>
+                </div>
+
+                <div id="goalsList" class="goals-list">
+                    <!-- Goals will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Roadmap Section -->
+            <section id="roadmap" class="section hidden">
+                <div class="section-header">
+                    <h2>Learning Roadmap</h2>
+                </div>
+
+                <div id="roadmapContainer" class="roadmap-container">
+                    <p class="message">Select a goal to generate or view its roadmap</p>
+                    <select id="goalSelect" onchange="loadRoadmap()">
+                        <option value="">-- Select a Goal --</option>
+                    </select>
+                </div>
+
+                <div id="roadmapView" class="roadmap-view hidden">
+                    <div class="roadmap-header">
+                        <h3 id="roadmapTitle"></h3>
+                        <button onclick="generateNewRoadmap()" class="btn-secondary">Regenerate with AI</button>
+                    </div>
+                    <div id="roadmapTopics" class="topics-list">
+                        <!-- Topics will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section id="progress" class="section hidden">
+                <div class="section-header">
+                    <h2>Your Progress</h2>
+                </div>
+
+                <div class="progress-tabs">
+                    <button onclick="switchProgressTab('overview')" class="tab-btn active">Overview</button>
+                    <button onclick="switchProgressTab('topics')" class="tab-btn">Topics</button>
+                    <button onclick="switchProgressTab('roadmaps')" class="tab-btn">Roadmaps</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div id="overviewTab" class="progress-tab">
+                    <div class="coverage-report">
+                        <h3>Skill Coverage Report</h3>
+                        <div class="coverage-stats">
+                            <div class="progress-item">
+                                <label>Overall Skill %</label>
+                                <div class="progress-bar">
+                                    <div id="overallBar" class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span id="overallPercent">0%</span>
+                            </div>
+                            <div class="coverage-categories">
+                                <div class="category">
+                                    <span class="badge mastered">Mastered</span>
+                                    <strong id="masteredCount">0</strong>
+                                </div>
+                                <div class="category">
+                                    <span class="badge proficient">Proficient</span>
+                                    <strong id="proficientCount">0</strong>
+                                </div>
+                                <div class="category">
+                                    <span class="badge beginner">Beginner</span>
+                                    <strong id="beginnerCount">0</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topics Tab -->
+                <div id="topicsTab" class="progress-tab hidden">
+                    <div id="userTopicsList" class="topics-progress-list">
+                        <!-- User topic progress will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Roadmaps Tab -->
+                <div id="roadmapsTab" class="progress-tab hidden">
+                    <div class="roadmap-select-progress">
+                        <label>Select Roadmap:</label>
+                        <select id="roadmapSelectProgress" onchange="loadRoadmapProgress()">
+                            <option value="">-- Select a Roadmap --</option>
+                        </select>
+                    </div>
+                    <div id="roadmapProgressView" class="roadmap-progress-view">
+                        <!-- Roadmap progress details will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="section hidden">
+                <div class="section-header">
+                    <h2>My Projects</h2>
+                    <button onclick="showProjectForm()" class="btn-primary">+ Submit Project</button>
+                </div>
+
+                <div id="projectForm" class="form-container hidden">
+                    <form onsubmit="submitProject(event)">
+                        <input type="text" id="projectTitle" placeholder="Project Title" required>
+                        <textarea id="projectDescription" placeholder="Project Description"></textarea>
+                        <input type="url" id="projectLink" placeholder="Project Link/GitHub URL" required>
+                        <button type="submit" class="btn-primary">Submit Project</button>
+                        <button type="button" onclick="toggleProjectForm()" class="btn-secondary">Cancel</button>
+                    </form>
+                </div>
+
+                <div id="projectsList" class="projects-list">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Assessment Section -->
+            <section id="assessment" class="section hidden">
+                <div class="section-header">
+                    <h2>Knowledge Assessment</h2>
+                </div>
+
+                <div class="assessment-container">
+                    <div class="assessment-selector">
+                        <label>Choose Topic to Assess:</label>
+                        <select id="topicSelectAssess" onchange="generateQuestion()">
+                            <option value="">-- Select a Topic --</option>
+                        </select>
+                    </div>
+
+                    <div id="assessmentView" class="assessment-view hidden">
+                        <div class="question-card">
+                            <h3>Question <span id="questionNumber">1</span></h3>
+                            <p id="questionText" class="question-text"></p>
+                        </div>
+
+                        <div class="answer-input">
+                            <textarea id="userAnswerInput" placeholder="Type your answer here..."></textarea>
+                            <button onclick="submitAnswer()" class="btn-primary">Submit Answer</button>
+                        </div>
+
+                        <div id="feedbackView" class="feedback-view hidden">
+                            <div id="feedbackContent"></div>
+                            <button onclick="generateQuestion()" class="btn-secondary">Next Question</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Section -->
+            <section id="chat" class="section">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2>Clarity Chat Assistant</h2>
+                        <p>Ask anything about your learning path</p>
+                    </div>
+                    <div id="chatMessages" class="chat-messages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="userMessage" placeholder="Ask a question..." onkeypress="handleChatKeyPress(event)">
+                        <button onclick="sendChatMessage()" class="btn-primary">Send</button>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-</div>
 
-<!-- DASHBOARD VIEW -->
-<div id="appView" class="hidden">
-
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>Sessions</h2>
-            <button onclick="createSession()">+</button>
-        </div>
-
-        <div id="sessionList" class="session-list"></div>
-
-        <div class="sidebar-footer">
-            <button onclick="logout()">Logout</button>
-        </div>
-    </div>
-
-    <div class="chat-container">
-        <div id="chatMessages" class="chat-messages"></div>
-
-        <div class="chat-input">
-            <input id="chatInput" placeholder="Type your message..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-
-</div>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

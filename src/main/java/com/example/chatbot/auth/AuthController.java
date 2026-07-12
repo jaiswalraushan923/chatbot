@@ -56,8 +56,11 @@ public class AuthController {
 
         String token = jwtService.generateToken(user.getEmail());
 
-        return AuthResponse.builder()
-                .token(token)
-                .build();
+       return AuthResponse.builder()
+        .token(token)
+        .userId(user.getId())
+        .email(user.getEmail())
+        .fullName(user.getFullName())
+        .build();
     }
 }
