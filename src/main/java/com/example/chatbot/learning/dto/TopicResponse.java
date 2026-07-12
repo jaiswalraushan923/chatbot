@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -20,4 +21,7 @@ public class TopicResponse {
 
     private String difficulty;
     private Integer estimatedHours;
+
+    private List<TopicResponse> children;
+
 }
