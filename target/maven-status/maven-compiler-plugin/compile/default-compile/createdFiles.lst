@@ -29,9 +29,11 @@ com\example\chatbot\learning\ProjectSubmission$ProjectSubmissionBuilder.class
 com\example\chatbot\learning\RoadmapTopic.class
 com\example\chatbot\learning\GoalRepository.class
 com\example\chatbot\session\MessageRepository.class
+com\example\chatbot\learning\dto\RoadmapResponse$RoadmapResponseBuilder.class
 com\example\chatbot\config\SecurityBeansConfig.class
 com\example\chatbot\auth\AuthController.class
 com\example\chatbot\config\SecurityConfig.class
+com\example\chatbot\learning\dto\TopicResponse$TopicResponseBuilder.class
 com\example\chatbot\SpringVertexChatbotApplication.class
 com\example\chatbot\user\UserService.class
 com\example\chatbot\session\Message$MessageBuilder.class
@@ -42,11 +44,13 @@ com\example\chatbot\learning\AssessmentService$AssessmentResult.class
 com\example\chatbot\learning\SkillCoverageReport.class
 com\example\chatbot\learning\Goal.class
 com\example\chatbot\ai\GeminiClient.class
+com\example\chatbot\learning\dto\TopicResponse.class
 com\example\chatbot\learning\AssessmentService$1.class
 com\example\chatbot\learning\SkillCoverageReport$SkillCoverageReportBuilder.class
 com\example\chatbot\learning\UserTopicProgress.class
 com\example\chatbot\learning\ProgressService.class
 com\example\chatbot\learning\AssessmentService.class
+com\example\chatbot\learning\mapper\RoadmapMapper.class
 com\example\chatbot\learning\AssessmentService$AssessmentQuestion.class
 com\example\chatbot\learning\Goal$GoalBuilder.class
 com\example\chatbot\user\User.class
@@ -55,6 +59,7 @@ com\example\chatbot\learning\AssessmentController.class
 com\example\chatbot\user\UserRepository.class
 com\example\chatbot\learning\RoadmapService$1.class
 com\example\chatbot\learning\TopicRepository.class
+com\example\chatbot\learning\dto\AiTopicDto.class
 com\example\chatbot\user\dto\RegisterRequest.class
 com\example\chatbot\user\CareerStage.class
 com\example\chatbot\session\Session.class
@@ -62,3 +67,4 @@ com\example\chatbot\user\dto\AuthResponse$AuthResponseBuilder.class
 com\example\chatbot\learning\Topic$TopicBuilder.class
 com\example\chatbot\session\ChatController.class
 com\example\chatbot\session\Role.class
+com\example\chatbot\learning\dto\RoadmapResponse.class
