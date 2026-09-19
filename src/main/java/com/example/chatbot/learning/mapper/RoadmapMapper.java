@@ -16,7 +16,7 @@ public class RoadmapMapper {
 
         List<TopicResponse> topics = roadmap.getRoadmapTopics()
                 .stream()
-                .filter(rt -> rt.getParent() == null)
+                .filter(rt -> rt.getParent() == null && rt.isIsanable())
                 .sorted(Comparator.comparing(RoadmapTopic::getOrdering))
                 .map(this::mapTopic)
                 .toList();
@@ -32,12 +32,13 @@ public class RoadmapMapper {
 
         List<TopicResponse> children = rt.getChildren()
                 .stream()
+                .filter(RoadmapTopic::isIsanable)
                 .sorted(Comparator.comparing(RoadmapTopic::getOrdering))
                 .map(this::mapTopic)
                 .toList();
 
         return TopicResponse.builder()
-                .id(rt.getTopic().getId())
+                .id(rt.getId())
                 .ordering(rt.getOrdering())
                 .slug(rt.getTopic().getSlug())
                 .title(rt.getTopic().getTitle())
