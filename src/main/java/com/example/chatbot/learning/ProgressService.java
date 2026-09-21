@@ -68,31 +68,8 @@ public class ProgressService {
                 saved.getNotes()
         );
 
-//        return userTopicProgressRepository.save(progress);
     }
 
-//    @Transactional
-//    public UserTopicProgress updateTopicProficiency(UUID userId, UUID topicId, double proficiency, String notes) {
-//        RoadmapTopic roadmapTopic = roadmapTopicRepository.findById(topicId)
-//                .orElseThrow(() -> new IllegalArgumentException("Roadmap topic not found"));
-//
-//        Topic topic = roadmapTopic.getTopic();
-//
-//        UserTopicProgress progress = userTopicProgressRepository.findByUserIdAndTopicId(userId, topicId)
-//                .orElseGet(() -> UserTopicProgress.builder()
-//                        .user(new com.example.chatbot.user.User())
-//                        .topic(topic)
-//                        .proficiency(0.0)
-//                        .build());
-//
-//        progress.setUser(new com.example.chatbot.user.User());
-//        progress.getUser().setId(userId);
-//        progress.setProficiency(Math.min(100.0, Math.max(0.0, proficiency)));
-//        progress.setLastAssessedAt(LocalDateTime.now());
-//        progress.setNotes(notes);
-//
-//        return userTopicProgressRepository.save(progress);
-//    }
 
     /**
      * Get user's overall progress for a roadmap (coverage %)
@@ -181,61 +158,6 @@ public class ProgressService {
                 .build();
     }
 
-//    public RoadmapProgress getRoadmapProgress(UUID userId, UUID roadmapId) {
-//        Roadmap roadmap = roadmapRepository.findById(roadmapId)
-//                .orElseThrow(() -> new IllegalArgumentException("Roadmap not found"));
-//
-//        List<RoadmapTopic> roadmapTopics = roadmapTopicRepository.findByRoadmapIdOrderByOrdering(roadmapId)
-//                .stream()
-//                .filter(RoadmapTopic::isIsanable)
-//                .toList();
-//
-//        if (roadmapTopics.isEmpty()) {
-//            return RoadmapProgress.builder()
-//                    .roadmapId(roadmapId)
-//                    .totalTopics(0)
-//                    .completedTopics(0)
-//                    .overallCoveragePercent(0.0)
-//                    .averageProficiency(0.0)
-//                    .build();
-//        }
-//
-//        List<UserTopicProgress> userProgresses = userTopicProgressRepository.findByUserId(userId);
-//        Map<UUID, UserTopicProgress> progressMap = userProgresses.stream()
-//                .collect(Collectors.toMap(p -> p.getTopic().getId(), p -> p));
-//
-//        double totalProficiency = 0;
-//        int completedTopics = 0;
-//
-//        for (RoadmapTopic rt : roadmapTopics) {
-//            if (progressMap.containsKey(rt.getTopic().getId())) {
-//                UserTopicProgress prog = progressMap.get(rt.getTopic().getId());
-//                totalProficiency += prog.getProficiency();
-//                if (prog.getProficiency() >= 70.0) {
-//                    completedTopics++;
-//                }
-//            }
-//        }
-//
-//        double overallCoverage = ((double) completedTopics / roadmapTopics.size()) * 100;
-//        double avgProficiency = totalProficiency / roadmapTopics.size();
-//
-//        return RoadmapProgress.builder()
-//                .roadmapId(roadmapId)
-//                .totalTopics(roadmapTopics.size())
-//                .completedTopics(completedTopics)
-//                .overallCoveragePercent(overallCoverage)
-//                .averageProficiency(avgProficiency)
-//                .topicProgresses(userProgresses.stream()
-//                        .map(p -> TopicProgressDTO.builder()
-//                                .topicId(p.getTopic().getId())
-//                                .topicTitle(p.getTopic().getTitle())
-//                                .proficiency(p.getProficiency())
-//                                .lastAssessedAt(p.getLastAssessedAt())
-//                                .build())
-//                        .collect(Collectors.toList()))
-//                .build();
-//    }
 
     /**
      * Get user's overall skill coverage across all topics
