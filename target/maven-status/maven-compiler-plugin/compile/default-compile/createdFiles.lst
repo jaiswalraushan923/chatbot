@@ -6,6 +6,7 @@ com\example\chatbot\ai\AIService.class
 com\example\chatbot\learning\ProjectController.class
 com\example\chatbot\learning\ProjectSubmissionRepository.class
 com\example\chatbot\learning\TopicController.class
+com\example\chatbot\learning\ProgressResponse.class
 com\example\chatbot\learning\RoadmapTopicRepository.class
 com\example\chatbot\learning\RoadmapTopic$RoadmapTopicBuilder.class
 com\example\chatbot\auth\JwtAuthenticationFilter.class
